@@ -150,13 +150,31 @@ useful as fuckkk
 #     out.show()
 
 
-from PIL import Image, ImageDraw, ImageFont
-im = Image.open('stock-photo.jpg')
+# from PIL import Image, ImageDraw, ImageFont
+im = Image.open('stock-photo.jpg').convert("RGBA")
 x,y = im.size
-blank_im = Image.new("RGBA", im.size, (255, 255, 255, 0))
-d = ImageDraw.Draw(blank_im)
-d.line(())
+# blank_im = Image.new("RGBA", im.size, (255, 255, 255, 0))
+# d = ImageDraw.Draw(blank_im)                                                        
+# num_lines = 10
+# spacing = min(x, y) // (num_lines - 1)
+# # for i in range(0,x):
+# # Draw the lines
+# for i in range(num_lines):
+#     offset = i * spacing
+#     # Draw diagonal lines
+#     d.line((offset, 0, 0, offset), fill=(128, 128, 128, 255), width=2)  # From top-left to bottom-right
+#     d.line((x, offset, x - offset, 0), fill=(128, 128, 128, 255), width=2)# Diagonal line from bottom-left to top-right
 
+#     # i += x/2
+# out = Image.alpha_composite(im, blank_im)
+# out.show()
+
+imgg = Image.open('stock-photo2.jpg').convert("RGBA")
+watermark_img = Image.open("dogo.jpg").convert("RGBA")
+watermark = watermark_img.resize((x // 4, y // 4), Image.LANCZOS)
+position = (x - watermark.width - 10, y - watermark.height - 10)  # Bottom right corner
+imgg.paste(watermark, position, watermark)
+imgg.show()
 if __name__ == '__main__':
     pass
 
